@@ -1,0 +1,14 @@
+{
+  "name": "wegit-server",
+  "version": "0.0.1",
+  "description": "wegit server",
+  "main": "server.js",
+  "author": "erguotou525@gmail.com",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "fastify": "^1.13.3",
+    "fastify-oauth2": "^0.2.2"
+  }
+}
