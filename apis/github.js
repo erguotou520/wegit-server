@@ -10,11 +10,12 @@ const http = axios.create({
 // })
 
 module.exports = {
-  setToken (access_token) {
-    http.defaults.headers = { ...http.defaults.headers, Authorization: `token ${access_token}` }
-  },
-  async getMe () {
-    const res = await http.get('/user')
+  async getMe (token) {
+    const res = await http.get('/user', null, {
+      headers: {
+        Authorization: `token ${token}`
+      }
+    })
     return res.data
   }
 }

@@ -1,6 +1,7 @@
 const oauthPlugin = require('fastify-oauth2')
 const config = require('../config')
-const githubApi = require('../apis/github')
+
+const githubCallbackUrl = '/auth/github/callback'
 
 module.exports = function (fastify) {
   fastify.register(oauthPlugin, {
@@ -14,13 +15,11 @@ module.exports = function (fastify) {
       auth: oauthPlugin.GITHUB_CONFIGURATION
     },
     startRedirectPath: '/login/github',
-    callbackUri: 'http://127.0.0.1:3001/auth/github/callback'
+    callbackUri: `${config.server.host}${githubCallbackUrl}`
   })
   
-  fastify.get('/auth/github/callback', async function (request, reply) {
+  fastify.get(githubCallbackUrl, async function (request, reply) {
     const result = await this.getAccessTokenFromAuthorizationCodeFlow(request)
-    githubApi.setToken(result.access_token)
-    const me = await githubApi.getMe()
-    reply.send({ me })
+    reply.redirect(`wegit://oauth?provider=github&token=${result.access_token}`)
   })
 }
