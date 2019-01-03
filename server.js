@@ -1,6 +1,7 @@
 const fastify = require('fastify')()
 const config = require('./config')
 const routes = require('./routes')
+const socket = require('./socket')
 const oauthList = require('./oauth')
 
 // register oauth
@@ -12,6 +13,12 @@ Object.keys(oauthList).forEach(key => {
 Object.keys(routes).forEach(key => {
   routes[key](fastify)
 })
+
+// socket.io
+socket(fastify.server)
+
+// redis
+fastify.register(require('fastify-redis'), config.redis)
 
 fastify.addSchema({
   $id: 'authHeader',

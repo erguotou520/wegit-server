@@ -9,6 +9,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "fastify": "^1.13.3",
-    "fastify-oauth2": "^0.2.2"
+    "fastify-oauth2": "^0.2.2",
+    "fastify-redis": "^3.0.0",
+    "socket.io": "^2.2.0"
   }
 }
