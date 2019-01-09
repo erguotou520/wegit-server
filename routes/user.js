@@ -3,7 +3,6 @@ const utils = require('../utils')
 
 module.exports = function register (fastify) {
   fastify.get('/me',
-    { schema: { headers: 'authHeader#' } },
     async (request, reply) => {
     if (request.body.provider === 'github') {
       const me = await githubApi.getMe(utils.getAccessTokenFromRequest(request))
