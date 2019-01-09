@@ -2,26 +2,20 @@ const fastify = require('fastify')()
 const config = require('./config')
 const routes = require('./routes')
 const socket = require('./socket')
-const oauthList = require('./oauth')
-const middleware = require('./middleware')
+const oauth = require('./oauth')
+const middlewares = require('./middlewares')
 
 // redis
 fastify.register(require('fastify-redis'), config.redis)
 
 // register middleware
-Object.keys(middleware).forEach(key => {
-  middleware[key](fastify)
-})
+middlewares(fastify)
 
 // register oauth
-Object.keys(oauthList).forEach(key => {
-  oauthList[key](fastify)
-})
+oauth(fastify)
 
 // register routes
-Object.keys(routes).forEach(key => {
-  routes[key](fastify)
-})
+routes(fastify)
 
 // socket.io
 socket(fastify.server)
